@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.contrib.auth.views import LoginView
 
 from .models import UserModel
 from .forms import SignUpForm
@@ -23,3 +24,8 @@ def SignUpViews(request):
         form = SignUpForm()
 
     return render(request, 'register.html', {'form': form})
+
+
+class UserLoginView(LoginView):
+    template_name = 'login.html'
+    
