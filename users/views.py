@@ -7,7 +7,7 @@ from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import UserModel
-from .forms import SignUpForm, UserProfileForm
+from .forms import SignUpForm, UserProfileForm, UserUpdateForm
 
 
 # Create your views here.
@@ -24,35 +24,36 @@ def SignUpView(request):
             profile.save()
 
             login(request, user)
-            return redirect('user_info')  # 'home' ning o'rniga sizning bosh sahifangizni nomlang
+            return redirect('user_info')
 
     else:
         user_form = SignUpForm()
         profile_form = UserProfileForm()
 
     return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
-#
-class UserLoginView(LoginView):
+
+
+class LoginViews(LoginView):
     template_name = 'login.html'
 
 
-# class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
-#     model = UserModel
-#     form_class = UserProfileUpdateForm
-#     template_name = 'update.html'
-#     success_url = '/'
-#
-#     def get_object(self, queryset=None):
-#         return self.request.user
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = UserModel
+    form_class = UserUpdateForm
+    template_name = 'update.html'
+    success_url = 'user_info'
+
+    def get_object(self, queryset=None):
+        return self.request.user.usermodel
 
 
 @login_required
-def user_info(request):
+def ProfileViews(request):
     user = request.user
     return render(request, 'info.html', {'user': user})
 
 
-def user_logout(request):
+def LogoutViews(request):
     logout(request)
     return redirect('/')
 
