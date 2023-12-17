@@ -1,31 +1,59 @@
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
+from django.views.generic import UpdateView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import UserModel
-from .forms import SignUpForm
+from .forms import SignUpForm, UserProfileForm
 
 
 # Create your views here.
-def SignUpViews(request):
+
+def SignUpView(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+        user_form = SignUpForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
 
-            UserModel.objects.create(
-                user=user,
-                full_name=form.cleaned_data.get('full_name'),
-                phone_number=form.cleaned_data.get('phone_number')
-            )
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
 
-            return HttpResponse('Done!')
+            login(request, user)
+            return redirect('user_info')  # 'home' ning o'rniga sizning bosh sahifangizni nomlang
+
     else:
-        form = SignUpForm()
+        user_form = SignUpForm()
+        profile_form = UserProfileForm()
 
-    return render(request, 'register.html', {'form': form})
-
-
+    return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
+#
 class UserLoginView(LoginView):
     template_name = 'login.html'
-    
+
+
+# class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
+#     model = UserModel
+#     form_class = UserProfileUpdateForm
+#     template_name = 'update.html'
+#     success_url = '/'
+#
+#     def get_object(self, queryset=None):
+#         return self.request.user
+
+
+@login_required
+def user_info(request):
+    user = request.user
+    return render(request, 'info.html', {'user': user})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
+
+
