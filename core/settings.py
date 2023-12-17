@@ -20,7 +20,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'tweet',  # local app
-    'chat',  # local app
     'users',  # local app
     'django.contrib.admin',
     'django.contrib.auth',
