@@ -1,1 +1,20 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <title>Title</title></head><body>  <h2>User Information</h2>  <p>Username: {{ user.username }}</p>  <p>Full Name: {{ user.usermodel.fullname }}</p>  <p>Email: {{ user.email }}</p>  <p>Phone Number: {{ user.usermodel.phone_number }}</p>  <p>Gender: {{ user.usermodel.gender }}</p></body></html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'users_css.css' %}">
+</head>
+<body>
+  <h1 class="h2">User Information</h1>
+  <p class="username-p">Username: {{ user.username }}</p>
+  <p class="username-p">Full Name: {{ user.usermodel.fullname }}</p>
+  <p class="username-p">Email: {{ user.email }}</p>
+  <p class="username-p">Phone Number: {{ user.usermodel.phone_number }}</p>
+  <p class="username-p">Gender: {{ user.usermodel.gender }}</p>
+  
+  <a href="{% url 'tweet_list' %}" class="back btn btn-secondary">Back to Tweet</a>
+  
+</body>
+</html>
