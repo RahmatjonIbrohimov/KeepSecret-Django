@@ -4,8 +4,17 @@ from django.db import models
 
 # Create your models here.
 class Tweet(models.Model):
+    hashtag_choices = [
+        ('Tarix', '#Tarix'),
+        ('Sport', '#Sport'),
+        ('Phone', '#Phone'),
+        ('Siyosat', '#Siyosat'),
+        ('Madaniy', '#Madaniy'),
+        ('Kitob', '#Kitob'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    hashtag = models.CharField(max_length=255)
+    hashtag = models.CharField(max_length=20, choices=hashtag_choices, default='tarix')
     question = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     parent_tweet = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
