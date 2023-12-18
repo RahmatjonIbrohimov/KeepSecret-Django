@@ -67,3 +67,9 @@ def LikeView(request, pk):
     tweet = get_object_or_404(Tweet, id=pk)
     tweet.likes.add(request.user)
     return HttpResponseRedirect('/')
+
+
+def HashtagView(request, hashtag):
+    tweets = Tweet.objects.filter(hashtag=hashtag)
+    return render(request, 'hashtag.html', {'hashtag_tweets': tweets, 'hashtag': hashtag})
+
