@@ -40,7 +40,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = UserModel
     form_class = UserUpdateForm
     template_name = 'update.html'
-    success_url = 'tweet_list'
+    success_url = '/'
 
     def get_object(self, queryset=None):
         return self.request.user.usermodel
