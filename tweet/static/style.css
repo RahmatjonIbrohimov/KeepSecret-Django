@@ -108,6 +108,14 @@ a {
     padding: 1px 5px;
 }
 
+.tweet-like-a {
+    margin-right: 10px;
+}
+
+.tweet-reply-a {
+    margin-right: 10px;
+}
+
 .tweet-id {
     background-color: rgb(253, 249, 245);
     border-radius: 6px;
@@ -154,3 +162,4 @@ a {
     margin-left: 60px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
