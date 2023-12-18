@@ -8,9 +8,8 @@ class Tweet(models.Model):
     hashtag = models.CharField(max_length=255)
     question = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.PositiveIntegerField(default=0)
     parent_tweet = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
-    like_count = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='tweet_like')
     comment_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
