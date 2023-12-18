@@ -11,7 +11,6 @@ from .forms import SignUpForm, UserProfileForm, UserUpdateForm
 
 
 # Create your views here.
-
 def SignUpView(request):
     if request.method == 'POST':
         user_form = SignUpForm(request.POST)
