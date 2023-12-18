@@ -11,8 +11,8 @@ def home(request):
 
 
 def Tweet_List(request):
-    tweets = Tweet.objects.all()
-    comments = Comment.objects.filter()
+    tweets = Tweet.objects.all().order_by('-date')
+    comments = Comment.objects.filter().order_by('-date')
     # print(comments)
     return render(request, 'tweet_list.html', {'tweets': tweets, 'comments': comments})
 
