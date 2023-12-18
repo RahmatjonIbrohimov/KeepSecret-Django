@@ -23,7 +23,7 @@ def SignUpView(request):
             profile.save()
 
             login(request, user)
-            return redirect('user_info')
+            return redirect('tweet_list')
 
     else:
         user_form = SignUpForm()
@@ -40,7 +40,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = UserModel
     form_class = UserUpdateForm
     template_name = 'update.html'
-    success_url = 'user_info'
+    success_url = 'tweet_list'
 
     def get_object(self, queryset=None):
         return self.request.user.usermodel
