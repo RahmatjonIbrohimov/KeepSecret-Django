@@ -73,3 +73,16 @@ def HashtagView(request, hashtag):
     tweets = Tweet.objects.filter(hashtag=hashtag)
     return render(request, 'hashtag.html', {'hashtag_tweets': tweets, 'hashtag': hashtag})
 
+
+def AllTweetsView(request):
+    tweets = Tweet.objects.all().order_by('-date')
+    return render(request, 'quests.html', {'tweets': tweets})
+
+
+def SearchViews(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        item = Tweet.objects.filter(question__contains=searched)
+        return render(request, 'search.html', {'searched': item})
+    else:
+        return render(request, 'search.html')
