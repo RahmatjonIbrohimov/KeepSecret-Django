@@ -9,4 +9,6 @@ urlpatterns = [
     path('add_comment/<int:tweet_id>/', views.Add_Comment, name='add_comment'), 
     path('like/<int:pk>/', views.LikeView, name='like_tweet'),
     path('hashtag/<str:hashtag>/', views.HashtagView, name='hashtag_view'),
+    path('quests/', views.AllTweetsView, name='all_tweets'),
+    path('search/', views.SearchViews, name='search-view'),
 ]
