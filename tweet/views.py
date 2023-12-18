@@ -1,5 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 
 from .models import Tweet, Comment
 from .forms import TweetForm, CommentForm
@@ -60,4 +65,14 @@ def Add_Comment(request, tweet_id):
         form = CommentForm()
 
     return render(request, 'add_comment.html', {'tweet': tweet, 'comments': comments, 'form': form})
+
+
+def LikeView(request, pk):
+    tweet = get_object_or_404(Tweet, id=pk)
+    tweet.likes.add(request.user)
+    return HttpResponseRedirect('/')
+
+
+# class All_Tweets(ListView):
+#     template_name = 'tweet_list.html'
 
