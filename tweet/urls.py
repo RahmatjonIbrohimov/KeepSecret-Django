@@ -7,5 +7,5 @@ urlpatterns = [
     path('salom/', views.home, name='home'),
     path('add_tweet/', views.Add_Tweet, name='add_tweet'),
     path('add_comment/<int:tweet_id>/', views.Add_Comment, name='add_comment'), 
-
+    path('like/<int:pk>/', views.LikeView, name='like_tweet'),
 ]
