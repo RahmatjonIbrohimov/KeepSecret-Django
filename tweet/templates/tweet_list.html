@@ -1,1 +1,65 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <title>Title</title></head><body>    <h1>Tweet List</h1>    {% for tweet in tweets %}        <p> -- {{ tweet.user.username }}: - {{ tweet.hashtag }} - {{ tweet.question }} - {{ tweet.date }} - Likes: {{ tweet.likes }} -- ID: {{ tweet.id }} -- - Comments: {{ tweet.comment_count }}</p>        <a href="{% url 'add_comment' tweet.id %}">Add Comment</a>        {% for comment in comments %}            {% if comment.tweet_id == tweet.id %}                    <p style="margin-left: 20px;">{{ comment.user.username }} - {{ comment.text }} - {{ comment.date }}</p>            {% endif %}        {% endfor %}    {% endfor %}</body></html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tweets</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/d5b5e10b1b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="nav">
+        <h1 class="nav-logo">All Tweets</h1>
+
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! <a href="profile/update/">Update Profile</a> | <a href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Sign Up</a></p>
+    {% endif %}
+    </div>
+
+    {% for tweet in tweets %}
+    <div class="container">
+                <div class="profile-user">
+            <img class="avatar-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuRDPL-ilJiALdTZrZuxx2V50RIvKMz34CBA&usqp=CAU" alt="">
+            <div class="user-name">
+                <p class="p-username"> {{ tweet.user.username }}</p>
+                <p class="p-tweet-date"> {{ tweet.date|date:"H:i, d.m.Y" }} </p>
+    
+            </div>
+        </div>
+        <div class="tweet">
+            <p class="tweet-question"> - {{ tweet.question }}</p>
+            <div class="tweet-extra">
+                <p class="extra hashtag"><a class="tweet-hashtag-a" href="">#{{ tweet.hashtag }}</a></p> 
+                <p class="extra tweet-liked"><i class="i-tag fa-solid fa-thumbs-up"></i> {{ tweet.likes }}</p>
+                <p class="extra tweet-id"> ID: {{ tweet.id }} </p> 
+                <p class="extra tweet-comment"> <i class="fa-solid fa-comments"></i> {{ tweet.comment_count }}  </p>
+                {% if user.is_authenticated %}
+                    <a href=""><i class="i-tag fa-solid fa-thumbs-up"></i> Like</a>
+                {% endif %}
+                <a href="{% url 'add_comment' tweet.id %}"><i class="fa-solid fa-reply"></i> Reply</a>
+            </div>
+
+            {% for comment in comments %}
+                {% if comment.tweet_id == tweet.id %}
+                <div class="comments-div">
+                    <div class="comment-user">
+                        <img class="avatar-user" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADhCAMAAADmr0l2AAABGlBMVEUAhon/s4EdJzP////+qG3y8vIxlpn/lHT/tYH/uIQAh4r/sn//s4IAio0AhIn/vJAeHiwAGy7/rnn/onn/qn1NjoizgmQAFCweIi8XJDIcJzMAHi8AGi4Af4LN0Nf2qG4AFi0XRk4ZPkfopXkOITAaNT8eGyrQlW8ADioniojhrYL+omEcLTgIeX1LQUDzrH2SbViDZFN2W07DjWqoe2C3o4QSXmQVUFcLcncQYmjVmHFYSUQmLTasoIRikofCpoOLmoXPqIP/7eL/4M7/2MD/6NqfnoWaw8Ti6uo7ODt+YFFCPD1oU0kFLDqMgW2Um4VzlYbpr4L/yqn/zrCAl4Zqq63q7++/2tszg3qx0tOfyMpVoqTj5eh/tLYafkx5AAALdUlEQVR4nO2dfV/ayhLHg4hnE0kEWoEE0guCiIryWEFAW6vWx3OrbdXr8fT9v427SXhIQpJdINlN/OT3T0UX2S8zOzM7u1iGe+diQoUKFSpUqFChQoUKFSpUKM/EcbwqRoBfa1++n70oBOLk3lG3uF1bWclmsytSbXure3Tck5WfBJ0SMhwcFaVEQiGbCj7KJhK1raOeHGhIjj/o1ioGNIMgZaXW7TEQkvZUFxHH97YStnBTykRi6+ggeIwQbzuBpJtAbh/JwULkmGIFF09jrGwdc8Fh5Hv2K8/ejNluUMzIH2N7p4mxeBAERP54PvfUI1a2er5HXIJPQ/S5FbmDxfxzipgoyjxtCgfx28vxKYjZI//WN4sGGKMSkr+W4ni7AAtLXnKBD6pSZPxCyPFM77hb3NoqdrvHBz03DKgou9LzxUrk+V4xq24XtD3C3AneXpUufTfluGPJTSajstsyZUK+V3PLI60Js1TdlOO7y6R0LCWO6RFyzLZnzjlV5YgWISfUCPBBG3bpEHIMGT5qhDwJ/6RIyBc9DZ/UCfme5/FTL+KRhhOI+eeIkHA+5LuEAVeyRGuapfe0CwBukzQhv0XagJCQYKChYECoygExJ+WL5A0IRcxJOZloipgoQSpX8EdUDAgJCTmpC22zxZQtEjEhJ9MIMaoqRJIhf0zJQ6EJiaxCSjFUFZFAylHDI+OjdLL8SIkeAUB6S5DMIiS/kdADEkgUNArtqbYIANYo8pEIo/wcMUZ06aRpqprngPPUMeJhzm1CAoD4WULK1Hfy4jsGTDZYtiSVXQX0fg1y2Aec4g0biYD4IO+mm3ofRbEBxVwJRKDYRsY9NyWQB3EBpeoOG1HF9oc51wC97zxhAkrV9ogPummkWXXJiNljz2tRvCAj5nYmfKoRb9xZiQSKbSzA5E1JzweNCDp5N8JpxfurJRiAYrUJQMQktt6qLo/ofRpkOAEBKBYO+6wZT0UsDTJLIhLpbhtrUXPwKBfu2uyM+UZ+yvYHhaUQCcQY025CGmZy44paLOcK+du+Hd4I8b66RH1KpKum3w9KEttvDMRMoVDIZIaDxg7rhKchlhrlhQtUArtB445ePGQBy0bqpX6/FAdIutFajKcPC7lFGMncmeF01yXLt1o4AbNRE2XG4QKMZA5B9aVMrmEZL3EQoW/fVZNlFKQkTkcQ6twzzNRFc50FATXGero1zEBIu6gjlpOFwf2EsEKgZ6hIF2WS6cUBNUhQSjfvyoV8sqznhHYr5/L5lVa6zqaT4+8SCTGM4WwimZ5r7dlZMlJqd5r3d2IGCobjTLUwHNx22iUlak0BSRlQ35VxA3BMqSheL0HVI+oD7VeDMWCWlAH1PuoaoAP6GJDU6Sejj6N2gEARO5L9ezAZwgLbRDMGJHnJguH/tgFU5hqpQz/baafTnUazdT+4GbTtAhEsTcWbwX2r2eik2zvQNesqrCWg+LcgEOMTNv+btwIE9ebNUCrnkoVCPp9M5nJlGBrFctXOzP1qWQmXZfiMZD4PI2lOHN4MmiXDcA1QSpb2TjbJIAq7Z4AdlC0A6ys5UZSkFVNaE4fWJmTvTTsLSUkPYi5vINQA1QYPONslgCicKi9f1zoQBkC2kVyxVNXGQw+ty5jyvf4NUQCl6ijfglPPCTW+CNuuzgK2rPd6thZsWjfbjOMhoFiYLGPvCbnx7DqZGcBOfmayyhqrtm0CZF1U6pcZM5YHRsDqUN8h8DhXCF8mOI2MZFqD8WFSDRlazIBbxGqydjNoWTcwlLnXG63BXS1fVfaTo6ikvCF9wxrsNCP6x1+8NeHu9LXYdEY0RdF4Awb920ZHifr9Uj2OyoORURaEeaXfTnc6Slq5uze9IcD0cNdLPuGH3iX7Q3MG0Oft+XaIWIWBOvKHlyYUzgyvFb/teF6qzchTHxX2jC+23GZpMe2RBKShEHApwM+Ys5ipmd0b/9nTPPGAF1TYzmGrPk/8aRw243gjwYOXfAyDNQ22VRBzYh0bDxzmxeQN3ti6t4le+IphF7BTnamZncR2CnB8HqsFCb56XIzihBltMyUVSriA6hGOlMTx6TPvN0yPyHnEtaIbt2EDSgV1fKGPHA8ePceDOkOdr/S1CZebeD4K2qM3BNlFBmck+BjhYc+x0AQ72oTLLTxAtqNtlBHnAADsPZBqywi7v0/cAxz3zRzPAb6c/CbRr5giCg7NwFIGxyLT8W30mgWEGk46OTlpWW3Y5O128maN3pCMQ5ABm6T5nAC15oyUx8307J3o0LrxISAoVSXcxK2ObysmzDidVPkLEMbFaq5wiImnjG9WcxnHkOQzwAjbb8x1LMO2G7YNfl8CKiebc/Chx/sO0G2FgCGgW4AfP+j00fTDuOGfqdadnuQvwI9/GWScbGqsdROf8UkffAwI/jJJP2pVJ4MRP5ieZOL3NaAN32rKCdDCSX0LOB21bgBc1VspQBY0r8HpVOMpI2BK76TBWYMKok66bzsCAv2TLOznK0AbzQDO93T/A5rX4JzPDgBgxGDCFGajniLg/EeDqYUdlAog/snDWPFJKTNbrCEBPT2Zt5LwODegwqhqgScGBXBhAdJ8pusI3gMSb4tin/W6I0/Pra0BfxDd8RI4NTPrlCQg+E4ekCMK6PHBvJWIhlHyWUJ/79Be63hC/6JH8h7KML/RPrqBJ3Tm9/ZujI120YBRPP1E2ZDGEsS5b5HCBNxAOikNPowrM6lveIDIvYXHt3zthEwUqQssvm8oQHBKhQ8dR9c3sAAvUB7q8e0te20iTYgFiFqC3l5idhIyzKTO3fBQOiFGFepyJZaP/kIZ8ISWAXFMiBFHkTmC5n+pgdpSrP9E8l0gPJTGRmIq5L4ebULUCqQWQjWhcuF6HMGHKtNo5cCxkOVM6pcj3znKgJSKGB3hGWKGjqkCmSLqlPEYnILt0pYvhtoLUmhozwpdz9jZ8BuSj1oNoxfGrsI6WVyYLyPM8FFfgJqEExThemTWiN82kCUa+WaojYTPSMJU5MKQEc83UOaDfLS5phK+INsX66lU/OfF+eXl5fnFr42ZqzL+5sOxYUTtsY3uAWH00YCv+CDhd3f7wIBCr95ZAubn0jD5KG6R7CRsoj/zgy1inwCZS1gLEUNgj+hHQOaQcDrXhyLt5PUH6JbS0rEGfPGr+TQJu0v5KTgj/xGeeQURI4sxgiDgKRK4r86fv7PGq3/3t3PqJQib3+dhBODxZJPg32xyQ4LAPZzs1dU/2hG3l/Ljvc+/dwNGN5IAKTcffqcc9OMUsgUSbirhP6v2CkZUQcgRkPbk3FAIGHS9S0D57YmRR19jAMLhsu3v8qPkq2j0eTxnJKD8dh2NXgeKcC2m6HpNnTQCUOZf1EbbnwARyi8qYCz6yssIQEExtibas55DT9HYWFeyY6L/31Ns0it9DYwJ5evYVNdv9nj7kWt9N3iN9sQxJf+JGXS5vm+Nt2pq6AclzvAxsy5WLRD3Z49Gg5Er5NcZwFjsl5lwfyM2wxd9DgTgWtQCMPZtQ4+4b3MqehUAwnGKmNFlaoK4b3tLj/bsMfRkacDRUtTwHC7P+D9V2BpQ1c/91X3W8eoM7fkj5QwIl+K5E1406nsLMmvXToDOdMFIFOY8PwffCx8APmV78GoTaFQKW8rR5iMIkteurRAViudPnz5ZI/45CFKHTX56tib8pMgC7x85MObTJAtXVoAxFXDGhC/B8c6plJ36DGHMyoLPbwHEUyS/mVNGNPov5PvXtPgCiqdI/vNsJow9G/FemQDzQULmn6gRMLCpwU7ymmEpGhff0wHt6bkh+Um3FPVNmKugpQY7CfI0ZTATwoDUZXiaVG9X8tu7WXxGadXbswz3U0FPDXaSn15e1M7n63Xg6jI8CSMs+X3ihQoVKlSoUKFChQoVKlQof2ntnev/aFSTgR0TyPsAAAAASUVORK5CYII=" alt="">
+                        <div class="comment-user-name">
+                            <p class="tweet-comment-username">{{ comment.user.username }}</p>
+                            <p class="tweet-comment-date">{{ comment.date|date:"H:i, d.m.Y" }}</p>
+                        </div>
+                    </div>        
+                    <p class="tweet-comment-text"><i class="fa-solid fa-reply fa-rotate-180"></i> {{ comment.text }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+
+</body>
+</html>
