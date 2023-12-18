@@ -41,7 +41,7 @@ def Add_Tweet(request, parent_tweet_id=None):
 
     comments = Comment.objects.filter(tweet=parent_tweet) if parent_tweet else None
 
-    return render(request, 'add_tweet.html', {'form': form, 'parent_tweet': parent_tweet, 'comments': comments})
+    return render(request, 'add_tweet.html', {'forms': form, 'parent_tweet': parent_tweet, 'comments': comments})
 
 
 @login_required
