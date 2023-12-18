@@ -32,8 +32,7 @@
         <div class="tweet">
             <p class="tweet-question"> - {{ tweet.question }}</p>
             <div class="tweet-extra">
-                <p class="extra hashtag"><a class="tweet-hashtag-a" href="">#{{ tweet.hashtag }}</a></p> 
-                    
+                <p class="extra hashtag"><a class="tweet-hashtag-a" href="hashtag/{{ tweet.hashtag }}">{{ tweet.hashtag }}</a></p> 
                 <p class="extra tweet-id"> ID: {{ tweet.id }} </p>                 
                 <p class="extra tweet-comment"> <i class="fa-solid fa-comments"></i> {{ tweet.comment_count }}  </p>
                 {% if user.is_authenticated %}
