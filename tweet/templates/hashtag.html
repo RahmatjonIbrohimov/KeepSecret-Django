@@ -1,1 +1,1 @@
-<!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8">  <title>$Title$</title></head><body>$END$</body></html>
+<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <title>Hashtag View - {{ hashtag }}</title></head><body>    <h1>Tweets with {{ hashtag }}</h1>    {% for tweet in hashtag_tweets %}        <div class="tweet-container">            <p>{{ tweet.question }}</p>            <!-- Boshqa contentlar -->        </div>    {% endfor %}</body></html>
