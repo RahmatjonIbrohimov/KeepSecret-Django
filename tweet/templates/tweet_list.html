@@ -11,6 +11,10 @@
 <body>
     <div class="nav">
         <h1 class="nav-logo">All Tweets</h1>
+        <form class="nav-a" action="search/" method="POST">
+            {% csrf_token %}
+            <input class="search" type="search" placeholder="Search" name="searched"><button class="button-search" type="submit">Search</button>
+        </form>
 
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.username }}! <a href="add_tweet/">Add <i class="fa-regular fa-pen-to-square fa-lg"></i></a> | <a href="profile/update/">Update <i class="fa-solid fa-user-pen fa-lg"></i></a> | <a href="profile/">Profile <i class="fa-solid fa-user fa-lg"></i></a> | <a href="{% url 'logout' %}">Logout</a></p>
