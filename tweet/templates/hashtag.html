@@ -1,1 +1,30 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <title>Hashtag View - {{ hashtag }}</title></head><body>    <h1>Tweets with {{ hashtag }}</h1>    {% for tweet in hashtag_tweets %}        <div class="tweet-container">            <p>{{ tweet.question }}</p>            <!-- Boshqa contentlar -->        </div>    {% endfor %}</body></html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hashtag View - {{ hashtag }}</title>
+    <link rel="stylesheet" href="{% static 'users_css.css' %}">
+</head>
+<body>
+    <h1>{{ hashtag }}</h1>
+        <div class="tweet-container">
+
+    {% for item in hashtag_tweets %}
+  <div class="my-tweet">
+        <p class="my-tweet-hashtag">Hashtag: <a href="/hashtag/{{ tweet.hashtag }}">{{ item.hashtag }}</a></p>
+        <p class="my-tweet-question">{{ item.question }}</p>
+        <div class="my-tweet-container">
+          <p class="my-tweet-more">Like: {{ item.likes.count }}</p>
+          <p class="my-tweet-more">Comment: {{ item.comment_count }}</p>
+          <p class="my-tweet-more"> ID: {{ item.id }}</p>
+          <p class="my-tweet-date">Date: {{ item.date|date:"H:i, d.m.Y" }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+
+  <a href="{% url 'tweet_list' %}" class="back btn btn-secondary">Back to Home</a>
+  
+</body>
+</html>
