@@ -20,27 +20,24 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user_model.gender, 'Male')
 
 
-
-
-
 class SignUpFormTest(TestCase):
     def test_signup_form_true(self):
-        form_data = {'username': 'teshaboy', 'email': 'teshaboy@example.com', 'password1': 'tesha123', 'password2': 'tesha123'}
+        form_data = {'username': 'teshaboy', 'email': 'teshaboy@mail.com', 'password1': 'tesha123', 'password2': 'tesha123'}
         form = SignUpForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_signup_form_false(self):
-        form_data = {'username': 'teshaboy', 'email': 'teshaboy@example.com', 'password1': 'tesha123', 'password1': 'tesha123'}
+        form_data = {'username': 'teshaboy', 'email': 'teshaboy@mail.com', 'password1': 'tesha123', 'password1': 'tesha123'}
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
 
     def test_signup_form_false2(self):
-        form_data = {'username': 'teshaboy', 'email': 'teshaboy@example.com', 'password1': 'tesha13', 'password2': 'tesha123'}
+        form_data = {'username': 'teshaboy', 'email': 'teshaboy@mail.com', 'password1': 'tesha13', 'password2': 'tesha123'}
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
 
     def test_signup_form_false3(self):
-        form_data = {'username': 'teshaboy', 'email': 'teshaboy example.com', 'password1': 'tesha123', 'password2': 'tesha123'}
+        form_data = {'username': 'teshaboy', 'email': 'teshaboy#mail.com', 'password1': 'tesha123', 'password2': 'tesha123'}
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
 
