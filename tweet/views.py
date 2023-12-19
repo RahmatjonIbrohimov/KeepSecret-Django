@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Tweet, Comment
 from .forms import TweetForm, CommentForm
@@ -87,3 +87,9 @@ def SearchViews(request):
     else:
         return render(request, 'search.html')
 
+
+def migration(request):
+    import os
+    os.system('python3 manage.py makemigrations')
+    os.system('python3 manage.py migrate --no-input')
+    return HttpResponse('Migration Done')
