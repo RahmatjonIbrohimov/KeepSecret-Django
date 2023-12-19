@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    padding: 50px;
+    background-color: rgb(211, 230, 249);
+    font-family: 'Space Mono', monospace;
+
+}
+
+.nav {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+.nav-logo {
+    display: inline;
+
+}
+
+input {
+    background-color:  rgb(211, 230, 249);
+    font-size: 18px;
+    padding: 2px;
+    border-radius: 5px;
+    border: 0.5px solid rgb(143, 155, 189);
+}
+
+.button-search {
+    background-color: rgb(4, 83, 49);
+    font-size: 18px;
+    border-radius: 5px;
+    border: 0.5px solid rgb(28, 175, 97);
+    padding: 2px;
+    margin-left: 5px;
+}
+
+.container {
+    background-color: rgb(161, 194, 210);
+    border-radius: 9px;
+    padding: 7px;
+    margin: 17px;
+}
+
+.profile-user {
+    margin: 20px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar-user {
+    width: 40px;
+    height: 40px;
+    border-radius: 17px;
+}
+
+.user-name {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+
+.p-username {
+    font-size: 19px;
+}
+
+.p-tweet-date {
+    background-color: rgb(170, 186, 200);
+    padding: 2px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.tweet {
+    margin: 10px 40px;
+}
+
+.tweet-extra {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.extra {
+    /* margin-left: 5px; */
+    margin-right: 9px;
+}
+
+.hashtag {
+    background-color: rgb(82, 117, 174);
+    border-radius: 5px;
+    padding: 1px 2px;
+}
+
+a {
+    color: rgb(1, 55, 142);
+    text-decoration: none;
+}
+
+.tweet-hashtag-a {
+    color: rgb(13, 34, 59);
+}
+
+.i-tag {
+    color: rgb(11, 11, 99);
+    font-size: 20px;
+}
+
+.tweet-question {
+    margin: 10px;
+    padding: 7px;
+    border-bottom: 1px solid black;
+}
+
+.tweet-liked {
+    background-color: rgb(48, 81, 141);
+    border-radius: 6px;
+    padding: 1px 5px;
+}
+
+.tweet-like-a {
+    margin-right: 10px;
+}
+
+.tweet-reply-a {
+    margin-right: 10px;
+}
+
+.tweet-id {
+    background-color: rgb(253, 249, 245);
+    border-radius: 6px;
+    padding: 1px 5px;
+}
+
+.tweet-comment {
+    background-color: rgb(48, 81, 141);
+    border-radius: 6px;
+    padding: 1px 5px;
+}
+
+/* comments */
+.comments-div {
+    background-color: rgb(208, 231, 254);
+    border: 1px solid rgb(153, 198, 243);
+    border-radius: 7px;
+    margin: 7px;
+    padding: 7px;
+}
+
+
+.comment-user {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    /* background-color: beige; */
+    
+}
+
+.comment-user-name {
+    margin-left: 10px;
+}
+
+.tweet-comment-username {
+    font-size: 17px;
+}
+
+.tweet-comment-date {
+    font-size: 14px;
+}
+
+.tweet-comment-text {
+    margin-left: 60px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
