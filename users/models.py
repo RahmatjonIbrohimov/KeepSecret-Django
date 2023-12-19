@@ -5,7 +5,8 @@ from django.db import models
 # Create your models here.
 class UserModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fullname = models.CharField(max_length=30, blank=True)
+    img = models.ImageField(upload_to='profile_img/', null=True)
+    fullname = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=15)
     gender = models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female')], blank=True)
 
