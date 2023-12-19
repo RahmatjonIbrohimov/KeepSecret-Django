@@ -24,6 +24,23 @@ body {
 
 }
 
+input {
+    background-color:  rgb(211, 230, 249);
+    font-size: 18px;
+    padding: 2px;
+    border-radius: 5px;
+    border: 0.5px solid rgb(143, 155, 189);
+}
+
+.button-search {
+    background-color: rgb(4, 83, 49);
+    font-size: 18px;
+    border-radius: 5px;
+    border: 0.5px solid rgb(28, 175, 97);
+    padding: 2px;
+    margin-left: 5px;
+}
+
 .container {
     background-color: rgb(161, 194, 210);
     border-radius: 9px;
