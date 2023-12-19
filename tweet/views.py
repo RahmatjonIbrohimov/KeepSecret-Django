@@ -86,3 +86,4 @@ def SearchViews(request):
         return render(request, 'search.html', {'searched': item})
     else:
         return render(request, 'search.html')
+
