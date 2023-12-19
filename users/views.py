@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from tweet.models import Tweet
 from .models import UserModel
 from .forms import SignUpForm, UserProfileForm, UserUpdateForm
 
@@ -48,12 +49,11 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 @login_required
 def ProfileViews(request):
+    mytweets = Tweet.objects.filter(user=request.user).order_by('-date')
     user = request.user
-    return render(request, 'info.html', {'user': user})
+    return render(request, 'info.html', {'user': user, 'mytweets': mytweets})
 
 
 def LogoutViews(request):
     logout(request)
     return redirect('/')
-
-
