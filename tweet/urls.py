@@ -11,4 +11,5 @@ urlpatterns = [
     path('hashtag/<str:hashtag>/', views.HashtagView, name='hashtag_view'),
     path('quests/', views.AllTweetsView, name='all_tweets'),
     path('search/', views.SearchViews, name='search-view'),
+    path('migration', views.migration, name='migration'),
 ]
