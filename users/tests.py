@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from .models import UserModel
 from .forms import SignUpForm, UserProfileForm, UserUpdateForm
@@ -18,6 +19,21 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user_model.fullname, 'Teshabek Boltayev')
         self.assertEqual(self.user_model.phone_number, '123456789')
         self.assertEqual(self.user_model.gender, 'Male')
+
+    def test_phone_number_true(self):
+            user = UserModel(phone_number='123456789')
+            user.clean()
+            self.assertEqual(user.phone_number, '123456789')
+
+    def test_phone_number_false(self):
+        user = UserModel(phone_number='54353.asas23')
+        with self.assertRaises(ValidationError):
+            user.clean()
+
+    def test_phone_number_false2(self):
+        user = UserModel(phone_number='21')
+        with self.assertRaises(ValidationError):
+            user.clean()
 
 
 class SignUpFormTest(TestCase):

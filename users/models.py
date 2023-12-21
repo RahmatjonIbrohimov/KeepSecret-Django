@@ -11,7 +11,6 @@ class UserModel(models.Model):
     phone_number = models.CharField(max_length=15)
     gender = models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female')], blank=True)
     
-
     def clean(self):
         if not self.phone_number.isdigit():
             raise ValidationError(
@@ -21,11 +20,5 @@ class UserModel(models.Model):
         if len(self.phone_number) <= 6:
             raise ValidationError('Raqamlar yetarlicha emas! Kamida 6 ta Raqam kiriting!')
         
-    # def check_number(self):
-    #     print(self.phone_number)
-    #     if not self.phone_number.isdigit():
-    #         raise ValidationError('Faqat raqam kiriting.', params={'phone_number': self.phone_number})
-
-
     def __str__(self):
         return self.user.username
