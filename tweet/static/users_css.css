@@ -91,6 +91,12 @@ h2 {
     margin: 17px 8px 0 4px;
 }
 
+.a-click {
+    background-color: beige;
+    border-radius: 5px;
+    padding: 4px;
+}
+
 .my-tweet-date {
     font-family: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

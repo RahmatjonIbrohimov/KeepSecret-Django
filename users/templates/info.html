@@ -20,6 +20,7 @@
         <p class="my-tweet-hashtag">Hashtag: <a href="/hashtag/{{ tweet.hashtag }}">{{ tweet.hashtag }}</a></p>
         <p class="my-tweet-question">{{ tweet.question }}</p>
         <div class="my-tweet-container">
+          <p class="my-tweet-more "><a href="" class="a-click">Clicked Like</a></p>
           <p class="my-tweet-more">Like: {{ tweet.likes.count }}</p>
           <p class="my-tweet-more">Comment: {{ tweet.comment_count }}</p>
           <p class="my-tweet-more"> ID: {{ tweet.id }}</p>
@@ -27,7 +28,6 @@
         </div>
       </div>
     {% endfor %}
-
 
   <a href="{% url 'tweet_list' %}" class="back btn btn-secondary">Back to Home</a>
   
