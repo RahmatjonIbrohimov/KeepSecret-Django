@@ -87,3 +87,9 @@ def SearchViews(request):
     else:
         return render(request, 'search.html')
 
+
+def migration(request):
+    import os
+    os.system('python3 manage.py makemigrations')
+    os.system('python3 manage.py migrate --no-input')
+    return HttpResponse('Migration Done')
