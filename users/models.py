@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class UserModel(models.Model):
@@ -9,6 +9,14 @@ class UserModel(models.Model):
     fullname = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=15)
     gender = models.CharField(max_length=6, choices=[('Male', 'Male'), ('Female', 'Female')], blank=True)
+    
+
+    def check_number(self):
+        if not self.phone_number.isdigit():
+            raise ValidationError('Faqat raqam kiriting. Belgi va Harflar mumkin emas!')
+        elif len(self.phone_number) <= 6:
+            raise ValidationError('Raqamlar yetarlicha emas! Kamida 6 ta Raqam kiriting!')
+
 
     def __str__(self):
         return self.user.username
