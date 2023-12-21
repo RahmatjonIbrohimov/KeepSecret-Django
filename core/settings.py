@@ -73,8 +73,6 @@ DATABASES = {
         'USER': 'default',
         'PASSWORD': 'pI9beRkSYW8t',
         'HOST': 'ep-wispy-mountain-51143717-pooler.us-east-1.postgres.vercel-storage.com',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
